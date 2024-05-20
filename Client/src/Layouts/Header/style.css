@@ -1,0 +1,10 @@
+.headerr{
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+    background-color: #ECFDFF;
+}
+ul{
+    display: flex;
+    gap: 20px;
+}
