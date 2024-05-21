@@ -19,8 +19,6 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-
-
 mongoose.connect(DB_URL)
   .then(() => {
     console.log('Connected!');
@@ -30,4 +28,63 @@ mongoose.connect(DB_URL)
       
 });
 
+app.get("/api/sofa", async (req, res) => {
+  try {
+    const sofa = await SofaModel.find({});
+
+    if (SofaModel.length > 0) {
+      res.status(200).send({ message: "success", data: sofa});
+    } else {
+      res.status(204).send({
+        message: "data is empty",
+        data: null,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+
+app.get("/api/sofa/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const sofa = await SofaModel.findById(id);
+
+    if (sofa) {
+      res.status(200).send({
+        message: "success",
+        data: sofa,
+      });
+    } else {
+      res.status(404).send({ message: "data not found" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+
+app.delete("/api/sofa/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedSofa= await SofaModel.findByIdAndDelete(id);
+
+    res.status(200).send({
+      message: "deleted succesfully!",
+      deletedSofa: deletedSofa,
+    });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+
+app.post("/api/sofa", async (req, res) => {
+  try {
+    const newSofa = new SofaModel({ ...req.body });
+    await newSofa.save();
+
+    res.status(201).send({ message: "created succesfully!", data: newSofa });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
 

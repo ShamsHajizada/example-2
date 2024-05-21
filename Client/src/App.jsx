@@ -6,6 +6,7 @@ import AddProduct from "./Pages/AddProduct";
 import NotFound from "./Pages/NotFound";
 import ProductDetailsPage from "./Pages/ProductDetailsPage";
 import Header from "./Layouts/Header";
+import Footer from "./Layouts/Footer";
 
 
 function App() {
@@ -14,6 +15,8 @@ function App() {
   return (
     <>
    <Header/>
+   
+
       <Routes>
 <Route path= "/" element={<HomePage />}/> 
 <Route path= "/add-product"element={<AddProduct />}/> 
@@ -21,7 +24,7 @@ function App() {
 <Route path= "/+" element={<NotFound />}/> 
 
       </Routes>
-      
+      <Footer />
     </>
   )
 }
